@@ -41,9 +41,7 @@ class Go(dotbot.Plugin):
 
     def handle(self, directive, data):
         if not self.can_handle(directive):
-            raise ValueError(
-                'Can not handle directive %s or go no installed' % directive
-            )
+            raise ValueError(f'Can not handle directive {directive} or go no installed')
         success = True
         for pkg_info in data:
             data = self._apply_defaults(pkg_info)
@@ -66,8 +64,8 @@ class Go(dotbot.Plugin):
 
             flags = data.get('flags', [])
 
-            cmd = [self._go_exec, 'get'] + flags + [package]
-            self._log.warning('Running command: %s' % ' '.join(cmd))
+            cmd = [self._go_exec, 'install'] + flags + [package]
+            self._log.warning(f'Running command: {" ".join(cmd)}')
             ret = subprocess.call(
                 cmd,
                 shell=False,
